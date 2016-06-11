@@ -8,6 +8,8 @@ import {HttpService} from "./services/httpService";
 import {FbOAuth} from "./components/fboauth";
 import {Register} from "./components/register";
 import {} from '@angular/router-deprecated';
+import {Admin} from "./components/admin";
+import {MainSummary} from "./components/mainSummary";
 
 @Component({
     selector: 'my-app',
@@ -16,11 +18,9 @@ import {} from '@angular/router-deprecated';
     templateUrl: 'templates/application.html'
 })
 @RouteConfig([
-    {
-        path: '/register',
-        name: 'Register',
-        component: Register
-    }
+    { path: '/', name: 'MainSummary', component: MainSummary },
+    { path: '/register', name: 'Register', component: Register },
+    { path: '/admin', name: 'Admin', component: Admin }
 ])
 export class AppComponent {
     constructor(private sampleDataService: SampleDataService){

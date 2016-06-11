@@ -15,14 +15,18 @@ export class Login{
     constructor(private router: Router) {
     }
 
+    routerOnActivate(){
+        (<any>jQuery('#loginModal')).openModal();
+    }
+
     tryLogin(){
         if(this.userName==="admin" && this.passWord==="pwd"){
-            this.router.navigate(['Register']);
+            this.router.navigateByUrl('/register');
             console.log("Done Admin");
             (<any>jQuery('#loginModal')).modal('hide');
         }
         else if(this.userName==="user" && this.passWord==="pwd"){
-            this.router.navigate(['Register']);
+            this.router.navigateByUrl('/admin');
             console.log("Done User");
             (<any>jQuery('#loginModal')).modal('hide');
         }
