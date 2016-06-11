@@ -1,0 +1,5 @@
+/*Bootstrap Navbar bug fix*/
+.row {
+    padding-right: 0px;
+    margin-right: 0px;
+}

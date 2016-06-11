@@ -193,3 +193,29 @@ pip-log.txt
 *.epoch
 *.lck
 *.log
+
+# Node dependency directories
+node
+node_modules
+npm-debug.log
+
+# Intellij Meta-data
+**/*.iml
+.idea
+
+# Compiled binary add-ons
+bin/
+target/
+**/webapp/build
+**/webapp/angular2
+**/webapp/@angular
+**/webapp/angular2-highcharts
+**/webapp/highcharts
+
+# Transpiled JS Files
+*.map
+es6-shim
+zone.js
+require.js
+reflect-metadata
+rxjs
