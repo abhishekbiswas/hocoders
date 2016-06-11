@@ -16,16 +16,19 @@ export class Login{
     }
 
     tryLogin(){
-        console.log("Hi"+ this.userName + " " + this.passWord);
         if(this.userName==="admin" && this.passWord==="pwd"){
             this.router.navigate(['Register']);
             console.log("Done Admin");
+            (<any>jQuery('#loginModal')).modal('hide');
         }
         else if(this.userName==="user" && this.passWord==="pwd"){
+            this.router.navigate(['Register']);
             console.log("Done User");
+            (<any>jQuery('#loginModal')).modal('hide');
         }
         else{
             console.log("Sorry");
+            (<any>jQuery('#loginModal')).modal('hide');
         }
     }
 }
