@@ -1,7 +1,6 @@
 package com.barclaycardus.hackathon.hocoders.service.dto;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 /**
  * Created by abhishek on 11/06/16.
@@ -9,6 +8,10 @@ import javax.validation.constraints.Null;
 
 @Entity(name = "User")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userId","phoneNumber"}))
+@NamedQuery(
+        name="findAllUsersByUserId",
+        query="SELECT c FROM User c WHERE c.userId LIKE :userId"
+)
 public class User {
 
     @Id
@@ -36,15 +39,6 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
-
-
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
 
     public String getFirstName() {
         return firstName;

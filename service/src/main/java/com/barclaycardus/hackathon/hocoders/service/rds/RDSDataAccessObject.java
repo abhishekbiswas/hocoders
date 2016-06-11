@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.TransactionRequiredException;
+import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -18,7 +15,7 @@ import java.util.*;
 public class RDSDataAccessObject<T> implements DataAccessObject<T> {
 
     // ----------------------------------- FIELDS --------------------------------------
-    //private static final Logger logger = LoggerFactory.getLogger(RDSDataAccessObject.class);
+    private static final Logger logger = LoggerFactory.getLogger(RDSDataAccessObject.class);
     private final RDSTableMetaData<T>                 rdsTableMetaData;
     //private final RDSTableMetaData<RDSStaleMarkerDto> staleMarkerRDSTableMetaData;
 
@@ -85,6 +82,22 @@ public class RDSDataAccessObject<T> implements DataAccessObject<T> {
         try {
             entityManager.remove(entityManager.merge(dto));
         } catch (IllegalArgumentException | TransactionRequiredException e) {
+            throw new Exception(e);
+        }
+    }
+
+    @Transactional
+    @Override
+    public List<T> query(String namedQuery, String paramName, String paramValue) throws Exception {
+        try{
+            List<T> retVal = new LinkedList<T>();
+            List<T> resultList = entityManager.createNamedQuery(namedQuery).setParameter(paramName, paramValue).getResultList();
+            for (T t : resultList) {
+                T n = deepCopy(t);
+                retVal.add(n);
+            }
+            return retVal;
+        } catch (IllegalArgumentException e) {
             throw new Exception(e);
         }
     }

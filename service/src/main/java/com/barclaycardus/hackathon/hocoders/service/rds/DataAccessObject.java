@@ -17,6 +17,8 @@ public interface DataAccessObject<T> {
 
     void delete(T dto) throws Exception; //DatabaseErrorException;
 
+    List<T> query(String namedQuery, String paramName, String paramValue) throws Exception;
+
     //List<T> get(QueryDescriptor descriptor) throws DatabaseErrorException;
 
     //List<T> getItemsByPrimaryKeys(QueryDescriptor queryDescriptor);
