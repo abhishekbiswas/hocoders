@@ -1,7 +1,6 @@
 package com.barclaycardus.hackathon.hocoders.service.dto;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 /**
  * Created by abhishek on 11/06/16.
