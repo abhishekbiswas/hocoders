@@ -296,11 +296,45 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-resources</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-test-resources</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <includeTypes>tar.gz</includeTypes>
+                            <includeArtifactIds>config</includeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.0</version>
                 <configuration>
-                    <port>8386</port>
+                    <port>8090</port>
+                    <systemProperties>
+                        <com.barclaycardus.hackathon.hocoders.service.config>${service.config.dir}</com.barclaycardus.hackathon.hocoders.service.config>
+                        <service.log4j2.config>${service.log4j2.config}</service.log4j2.config>
+                        <server.log.dir>${project.build.directory}/logs</server.log.dir>
+                    </systemProperties>
+                    <webapps>
+                        <webapp>
+                            <contextPath>/service</contextPath>
+                            <groupId>com.barclaycardus.hackathon</groupId>
+                            <artifactId>service</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                            <type>war</type>
+                            <asWebapp>true</asWebapp>
+                        </webapp>
+                    </webapps>
                 </configuration>
             </plugin>
 
