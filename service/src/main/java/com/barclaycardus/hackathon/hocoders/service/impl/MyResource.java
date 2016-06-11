@@ -24,9 +24,6 @@ public class MyResource {
     @Inject
     ServiceConfigHolder serviceConfigHolder;
 
-    @Inject
-    RDSDataAccessObject<User> userDataAccessObject;
-
     private static final Logger log = LoggerFactory.getLogger(MyResource.class);
 
     @GET
@@ -37,10 +34,6 @@ public class MyResource {
         log.debug("debug - request received");
         log.info("info - request processed!");
         log.debug("debug - request processed");
-
-        User admin = new User("Abhishek", "Biswas", "+91 7030971117", "admin", "password");
-        userDataAccessObject.add(admin);
-
         return "Got it!";
     }
 

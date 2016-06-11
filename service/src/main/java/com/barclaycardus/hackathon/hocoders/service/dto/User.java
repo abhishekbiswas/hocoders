@@ -1,6 +1,7 @@
 package com.barclaycardus.hackathon.hocoders.service.dto;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 /**
  * Created by abhishek on 11/06/16.
@@ -11,8 +12,8 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(nullable = false)
+    private String userId;
 
     @Column(nullable = false)
     private String firstName;
@@ -24,29 +25,26 @@ public class User {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private String userId;
-
-    @Column(nullable = false)
     private String password;
 
     public User() {}
 
-    public  User (String firstName, String lastName, String phoneNumber, String userId, String password) {
+    public  User (String userId, String firstName, String lastName, String phoneNumber, String password) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.userId = userId;
         this.password = password;
     }
 
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -77,7 +75,7 @@ public class User {
     }
 
     public void setUserId(String userId) {
-        userId = userId;
+        this.userId = userId;
     }
 
     public String getPassword() {

@@ -91,8 +91,8 @@ public class ServiceBindings {
 
     @Bean
     CoreRdsDbConfig coreRdsDbConfig(){
-        return new CoreRdsDbConfig("jdbc:mysql://localhost:3306/ginnie?useUnicode=true&amp;characterEncoding=utf8",
-                                    "com.mysql.jdbc.Driver", "root", "abhishek1234");
+        return new CoreRdsDbConfig("jdbc:mysql://hocoderdb.cgjanbrimn9g.ap-northeast-1.rds.amazonaws.com:3306/ginnie?useUnicode=true&amp;characterEncoding=utf8",
+                                    "com.mysql.jdbc.Driver", "hocoder", "hocoder1");
     }
 
     @Bean
