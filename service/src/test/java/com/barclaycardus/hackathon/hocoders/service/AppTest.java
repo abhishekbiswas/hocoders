@@ -1,4 +1,4 @@
-package com.barclaycardus.hackathon;
+package com.barclaycardus.hackathon.hocoders.service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

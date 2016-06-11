@@ -13,21 +13,169 @@
     <groupId>com.barclaycardus.hackathon</groupId>
     <artifactId>config</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>config</name>
     <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-deployment-sources</id>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/assembly</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/deployment</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-tools</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath" />
+                                <taskdef name="fmpp" classname="fmpp.tools.AntTask" />
+                                <mkdir dir="${project.build.directory}/config-temp" />
+                                <outofdate>
+                                    <sourcefiles>
+                                        <fileset dir="src/main/deployment/config" />
+                                        <fileset dir="src/main/deployment">
+                                            <include name="**/*.properties" />
+                                            <include name="**/*.tdd" />
+                                        </fileset>
+                                    </sourcefiles>
+                                    <targetfiles>
+                                        <fileset dir="${project.build.directory}/config-temp" />
+                                    </targetfiles>
+                                    <sequential>
+                                        <property name="environment.names" value="local,qe,prod" />
+                                        <for list="${environment.names}" param="environment.name" trim="true">
+                                            <sequential>
+                                                <var name="current.environment.name" value="@{environment.name}" />
+                                                <echo message="Generating config files for ${current.environment.name}" />
+                                                <copy todir="${project.build.directory}/config-temp/@{environment.name}" overwrite="true">
+                                                    <fileset dir="src/main/deployment/config">
+                                                        <include name="**/*.ftl" />
+                                                    </fileset>
+                                                    <fileset dir="src/main/deployment">
+                                                        <include name="common.properties" />
+                                                        <include name="@{environment.name}.properties" />
+                                                        <include name="**/*.tdd" />
+                                                    </fileset>
+                                                </copy>
+                                                <fmpp destdir="${project.build.directory}/freemarker-temp/@{environment.name}" srcdir="${project.build.directory}/config-temp/@{environment.name}">
+                                                    <data expandProperties="yes">
+                                                        antProperties()
+                                                        properties(common.properties)
+                                                        properties(@{environment.name}.properties)
+                                                        fmpp : eval(' return engine; ')
+                                                    </data>
+                                                    <include name="**/*.ftl" />
+                                                </fmpp>
+                                                <filterset id="copy-config-filters" begintoken="@{" endtoken="}">
+                                                    <filtersfile file="src/main/deployment/common.properties" />
+                                                    <filtersfile file="src/main/deployment/@{environment.name}.properties" />
+                                                    <filter token="maven.project.version" value="${project.version}" />
+                                                </filterset>
+                                                <copy todir="${project.build.directory}/config/@{environment.name}" overwrite="true">
+                                                    <fileset dir="${project.build.directory}/freemarker-temp/@{environment.name}">
+                                                        <include name="**/*.ftl" />
+                                                    </fileset>
+                                                    <filterset refid="copy-config-filters" />
+                                                    <mapper>
+                                                        <mapper type="glob" from="*.xml.ftl" to="*.xml" />
+                                                        <mapper type="glob" from="*.json.ftl" to="*.json" />
+                                                        <mapper type="glob" from="*.properties.ftl" to="*.properties" />
+                                                        <mapper type="glob" from="*.bat.ftl" to="*.bat" />
+                                                        <mapper type="glob" from="*.sh.ftl" to="*.sh" />
+                                                    </mapper>
+                                                </copy>
+                                                <copy todir="${project.build.directory}/config/@{environment.name}" overwrite="true">
+                                                    <fileset dir="src/main/deployment/config">
+                                                        <include name="**/*.xml" />
+                                                        <include name="**/*.json" />
+                                                        <include name="**/*.properties" />
+                                                        <include name="**/*.bat" />
+                                                        <include name="**/*.sh" />
+                                                        <exclude name="**/*.ftl" />
+                                                    </fileset>
+                                                    <filterset refid="copy-config-filters" />
+                                                </copy>
+                                                <for param="config.file">
+                                                    <path>
+                                                        <fileset dir="${project.build.directory}/config/@{environment.name}">
+                                                            <include name="**/*.xml" />
+                                                            <include name="**/*.json" />
+                                                            <include name="**/*.properties" />
+                                                            <include name="**/*.bat" />
+                                                            <include name="**/*.sh" />
+                                                        </fileset>
+                                                    </path>
+                                                    <sequential>
+                                                        <echo message="Validating file - @{config.file}" />
+                                                        <local name="config.file.content" />
+                                                        <loadfile property="config.file.content" srcFile="@{config.file}" />
+                                                        <condition property="missing-tokens">
+                                                            <matches pattern="@\{.+\}" string="${config.file.content}" multiline="true" />
+                                                        </condition>
+                                                        <fail message="Some tokens were not replaced!" if="missing-tokens" />
+                                                    </sequential>
+                                                </for>
+                                            </sequential>
+                                        </for>
+                                    </sequential>
+                                </outofdate>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>dist</id>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/main/assembly/dist.xml</descriptor>
+                            </descriptors>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
 
 </project>

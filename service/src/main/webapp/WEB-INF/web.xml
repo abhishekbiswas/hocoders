@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value></param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4jConfiguration</param-name>
+        <param-value>${sys:service.log4j2.config}</param-value>
+    </context-param>
+</web-app>
