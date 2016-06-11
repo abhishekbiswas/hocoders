@@ -18,7 +18,7 @@ import java.util.*;
 public class RDSDataAccessObject<T> implements DataAccessObject<T> {
 
     // ----------------------------------- FIELDS --------------------------------------
-    //private static final Logger logger = LoggerFactory.getLogger(RDSDataAccessObject.class);
+    private static final Logger logger = LoggerFactory.getLogger(RDSDataAccessObject.class);
     private final RDSTableMetaData<T>                 rdsTableMetaData;
     //private final RDSTableMetaData<RDSStaleMarkerDto> staleMarkerRDSTableMetaData;
 
