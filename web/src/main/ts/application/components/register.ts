@@ -1,4 +1,4 @@
-///<reference path="../../../../node_modules/angular2/typings/browser.d.ts"/>
+///<reference path="../../../../../node_modules/angular2/typings/browser.d.ts"/>
 
 import {Component} from "@angular/core";
 
@@ -6,6 +6,5 @@ import {Component} from "@angular/core";
     selector: 'register',
     templateUrl: 'templates/register.html'
 })
-
 export class Register{
 }
