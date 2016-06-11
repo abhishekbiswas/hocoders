@@ -42,6 +42,8 @@ public class ServiceBindings {
     @Inject
     private ResourcePatternResolver resourcePatternResolver;
 
+
+
     @Bean
     public static File jerseyServiceConfigDir() {
         return new File(System.getProperty("com.barclaycardus.hackathon.hocoders.service.config"));
@@ -90,9 +92,8 @@ public class ServiceBindings {
 
 
     @Bean
-    CoreRdsDbConfig coreRdsDbConfig(){
-        return new CoreRdsDbConfig("jdbc:mysql://localhost:3306/ginnie?useUnicode=true&amp;characterEncoding=utf8",
-                                    "com.mysql.jdbc.Driver", "root", "abhishek1234");
+    CoreRdsDbConfig coreRdsDbConfig() throws IOException {
+        return jerseyServiceConfigHolder().getCoreRdsConfig();
     }
 
     @Bean
