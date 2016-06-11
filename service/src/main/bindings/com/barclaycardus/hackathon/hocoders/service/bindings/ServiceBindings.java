@@ -121,7 +121,7 @@ public class ServiceBindings {
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         entityManagerFactoryBean.setJpaProperties(properties);
         String[] packagesToScan = {"com.barclaycardus.hackathon.hocoders.service.dto", "com.barclaycardus.hackathon.hocoders.service.rds"};
         entityManagerFactoryBean.setPackagesToScan(packagesToScan);
