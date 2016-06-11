@@ -1,5 +1,6 @@
 package com.barclaycardus.hackathon.hocoders.service.config;
 
+import com.barclaycardus.hackathon.hocoders.service.dto.CoreRdsDbConfig;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -33,6 +34,13 @@ public class ServiceConfigHolder {
 
     public String getMessageForService(String environment) {
         return configRoot.path("service").path("message").path(environment).getTextValue();
+    }
+
+    public CoreRdsDbConfig getCoreRdsConfig() {
+        return new CoreRdsDbConfig(configRoot.path("service").path("aws").path("url").getTextValue(),
+                                   configRoot.path("service").path("aws").path("driver").getTextValue(),
+                                   configRoot.path("service").path("aws").path("username").getTextValue(),
+                                   configRoot.path("service").path("aws").path("password").getTextValue());
     }
 
 }
