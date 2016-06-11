@@ -1,6 +1,7 @@
 ///<reference path="../../../../../node_modules/angular2/typings/browser.d.ts"/>
 
 import {Component} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 
 @Component({
     selector: 'login',
@@ -11,16 +12,20 @@ export class Login{
     private userName: string;
     private passWord: string;
 
+    constructor(private router: Router) {
+    }
+
     tryLogin(){
         console.log("Hi"+ this.userName + " " + this.passWord);
         if(this.userName==="admin" && this.passWord==="pwd"){
-            alert("Done Admin");
+            this.router.navigate(['Register']);
+            console.log("Done Admin");
         }
         else if(this.userName==="user" && this.passWord==="pwd"){
-            alert("Done User");
+            console.log("Done User");
         }
         else{
-            alert("Sorry");
+            console.log("Sorry");
         }
     }
 }
