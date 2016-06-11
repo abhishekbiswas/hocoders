@@ -1,13 +1,13 @@
 <html>
 <head>
-    <title>CCD Reporting Tool</title>
+    <title>b-genie</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
     <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="lib/custom/css/custom_style.css" rel="stylesheet">
 
-    <script src="js/system.js"></script>
+    <script src="systemjs/dist/system.src.js"></script>
     <script>
         System.config({
             map: {
@@ -30,7 +30,7 @@
         });
     </script>
 
-    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <script src="es6-shim/es6-shim.js"></script>
@@ -45,11 +45,8 @@
     System.import('build/js/main').catch(console.log.bind(console));
 </script>
 
-<p>
-    Hello World!
-</p>
+<my-app>Loading...</my-app>
 
-<!--<my-app>Loading...</my-app>-->
 </body>
 
 </html>

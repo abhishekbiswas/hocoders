@@ -6,6 +6,8 @@ import com.barclaycardus.hackathon.hocoders.service.exception.CustomException;
 import com.barclaycardus.hackathon.hocoders.service.rds.RDSDataAccessObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -40,6 +42,13 @@ public class MyResource {
         userDataAccessObject.add(admin);
 
         return "Got it!";
+    }
+
+    @GET
+    @Path("getit")
+    @Produces("application/json")
+    public ResponseEntity<String> getItJson() {
+        return new ResponseEntity<>("Returning in JSON", HttpStatus.OK);
     }
 
     @GET
