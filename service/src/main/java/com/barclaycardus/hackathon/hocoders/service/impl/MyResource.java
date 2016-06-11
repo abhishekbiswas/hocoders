@@ -1,7 +1,9 @@
 package com.barclaycardus.hackathon.hocoders.service.impl;
 
 import com.barclaycardus.hackathon.hocoders.service.config.ServiceConfigHolder;
+import com.barclaycardus.hackathon.hocoders.service.dto.User;
 import com.barclaycardus.hackathon.hocoders.service.exception.CustomException;
+import com.barclaycardus.hackathon.hocoders.service.rds.RDSDataAccessObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,16 +22,23 @@ public class MyResource {
     @Inject
     ServiceConfigHolder serviceConfigHolder;
 
+    @Inject
+    RDSDataAccessObject<User> userDataAccessObject;
+
     private static final Logger log = LoggerFactory.getLogger(MyResource.class);
 
     @GET
     @Path("get")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
+    public String getIt() throws Exception{
         log.info("info - request received!");
         log.debug("debug - request received");
         log.info("info - request processed!");
         log.debug("debug - request processed");
+
+        User admin = new User("Abhishek", "Biswas", "+91 7030971117", "admin", "password");
+        userDataAccessObject.add(admin);
+
         return "Got it!";
     }
 
