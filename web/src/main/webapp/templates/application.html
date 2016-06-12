@@ -1,7 +1,40 @@
 <!--NAVBAR-->
 
 <div class="row">
-    <navbar></navbar>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form navbar-left" role="search" action="/search/" method="POST">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control" placeholder="Search">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+
+                    <li *ngIf="!authenticated">
+                        <a href="" data-toggle="modal" data-target="#loginModal">Login</a>
+                    </li>
+                    <!--<li *ngIf="authenticated">
+                        <a href="" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    </li>-->
+                    <li *ngIf="!authenticated">
+                        <a href="" data-toggle="modal" data-target="#registerModal">Register</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <login></login>
+
+    <register></register>
+
 </div>
 
 <div class="container" style="margin-top:-20px; min-height:550px;">

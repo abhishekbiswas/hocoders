@@ -12,16 +12,16 @@
                 <h4 class="modal-title" id="loginModalLabel">Login</h4>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)="tryLogin()" role="form" id="login">
+                <form (ngSubmit)="login()" role="form" id="login">
                     <div class="form-group">
                         <label for="username">User Name:</label>
                         <input type="username" class="form-control" id="username"
-                               [(ngModel)]='userName' placeholder="Enter user name">
+                               [(ngModel)]='username' placeholder="Enter user name">
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" class="form-control" id="password"
-                               [(ngModel)]='passWord' placeholder="Enter password">
+                               [(ngModel)]='password' placeholder="Enter password">
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox"> Remember me</label>

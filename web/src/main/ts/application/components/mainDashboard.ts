@@ -2,10 +2,10 @@ import {Component} from "@angular/core";
 import {Auth} from "../services/auth.service";
 
 @Component({
-    selector: 'main-summary',
-    templateUrl: 'templates/main_summary.html'
+    selector: 'main-dashboard',
+    templateUrl: 'templates/main_dashboard.html'
 })
-export class MainSummary {
+export class Dashboard {
     constructor(private auth: Auth) {
     }
 }

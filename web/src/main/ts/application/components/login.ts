@@ -2,36 +2,29 @@
 
 import {Component} from '@angular/core';
 import {Router} from '@angular/router-deprecated';
+import {LoginService} from "../services/loginService";
 
 @Component({
     selector: 'login',
     templateUrl: 'templates/login.html'
 })
-export class Login{
+export class Login {
 
-    private userName: string;
-    private passWord: string;
+    private username: string;
+    private password: string;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private loginService: LoginService) {
+        console.log("Login loaded...");
     }
 
-    routerOnActivate(){
-        (<any>jQuery('#loginModal')).openModal();
-    }
-
-    tryLogin(){
-        if(this.userName==="admin" && this.passWord==="pwd"){
-            this.router.navigateByUrl('/admin');
-            console.log("Done Admin");
-            (<any>jQuery('#loginModal')).modal('hide');
-        }
-        else if(this.userName==="user" && this.passWord==="pwd"){
-            console.log("Done User");
-            (<any>jQuery('#loginModal')).modal('hide');
-        }
-        else{
-            console.log("Sorry");
-            (<any>jQuery('#loginModal')).modal('hide');
-        }
+    login(){
+        console.log("Username: " + this.username + "Password: " + this.password);
+        this.loginService.login(this.username, this.password)
+            .then((result) => {
+                console.log("Raised event!");
+            },
+                (error) => {
+                    console.log("LoginService returned bad response: " + error);
+                });
     }
 }

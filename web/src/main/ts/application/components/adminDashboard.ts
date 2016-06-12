@@ -2,8 +2,8 @@ import {Component} from "@angular/core";
 
 @Component({
     selector: 'admin',
-    template: '<h1>Admin</h1>'
+    template: '<h1>Admin Dashboard</h1>'
 })
 
-export class Admin{
+export class AdminDashboard {
 }
