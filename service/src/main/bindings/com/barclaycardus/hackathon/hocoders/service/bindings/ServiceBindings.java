@@ -3,9 +3,11 @@ package com.barclaycardus.hackathon.hocoders.service.bindings;
 
 import com.barclaycardus.hackathon.hocoders.service.dto.CoreRdsDbConfig;
 import com.barclaycardus.hackathon.hocoders.service.dto.User;
+import com.barclaycardus.hackathon.hocoders.service.dto.DataStream;
 import com.barclaycardus.hackathon.hocoders.service.rds.ObjectConverter;
 import com.barclaycardus.hackathon.hocoders.service.rds.RDSDataAccessObject;
 import com.barclaycardus.hackathon.hocoders.service.rds.RDSTableMetaData;
+import com.barclaycardus.hackathon.hocoders.service.utils.DataStreamTranslator;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -144,7 +146,23 @@ public class ServiceBindings {
 
     @Bean
     public RDSDataAccessObject<User> userDataAccessObject() throws Exception {
-        return new RDSDataAccessObject(userRDSTableMetaData());
+        return new RDSDataAccessObject<>(userRDSTableMetaData());
+    }
+
+    @Bean
+    public RDSTableMetaData<DataStream> dataStreamRDSTableMetaData() throws Exception {
+        return new RDSTableMetaData<>(DataStream.class);
+    }
+
+    @Bean
+    public RDSDataAccessObject<DataStream> dataStreamRDSDataAccessObject() throws Exception {
+        return new RDSDataAccessObject<>(dataStreamRDSTableMetaData());
+    }
+
+
+    @Bean
+    public DataStreamTranslator dataStreamTranslator() {
+        return  new DataStreamTranslator();
     }
 
 }
