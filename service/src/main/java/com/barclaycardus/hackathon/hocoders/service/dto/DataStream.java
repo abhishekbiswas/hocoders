@@ -7,11 +7,11 @@ import javax.persistence.*;
  */
 
 @Entity(name = "DataStream")
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userId"}))
+@Table
 public class DataStream {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
 
     @Column(nullable = false)

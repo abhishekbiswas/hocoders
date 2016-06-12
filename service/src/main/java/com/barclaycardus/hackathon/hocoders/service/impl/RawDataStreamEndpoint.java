@@ -15,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by abhishek on 12/06/16.
@@ -36,9 +37,12 @@ public class RawDataStreamEndpoint {
     public ResponseEntity<String> addDataStream(List<RawDataStream> rawDataStreams) throws Exception {
         for(RawDataStream rawDataStream : rawDataStreams) {
             DataStream dataStream = (DataStream) dataStreamTranslator.translateFrom(rawDataStream);
+            dataStream.setId(new Random().nextInt(999999));
             dataStreamRDSDataAccessObject.add(dataStream);
         }
         return new ResponseEntity<>("Success!", HttpStatus.OK);
     }
+
+
 
 }
