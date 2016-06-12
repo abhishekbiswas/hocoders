@@ -4,6 +4,7 @@ import com.barclaycardus.hackathon.hocoders.service.dto.DataStream;
 import com.barclaycardus.hackathon.hocoders.service.dto.RawDataStream;
 import com.barclaycardus.hackathon.hocoders.service.rds.RDSDataAccessObject;
 import com.barclaycardus.hackathon.hocoders.service.utils.DataStreamTranslator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class RawDataStreamEndpoint {
     @Inject
     DataStreamTranslator dataStreamTranslator;
 
-    @Inject
+    @Autowired
     RDSDataAccessObject<DataStream> dataStreamRDSDataAccessObject;
 
     @POST

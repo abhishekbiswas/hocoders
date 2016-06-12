@@ -11,6 +11,9 @@ import javax.persistence.*;
 public class DataStream {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @Column(nullable = false)
     private String userId;
 
@@ -20,10 +23,20 @@ public class DataStream {
     @Column(nullable = false)
     private long frequency;
 
+    public DataStream(){}
+
     public DataStream(String userId, String word, long frequency) {
         this.userId = userId;
         this.word = word;
         this.frequency = frequency;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserId() {

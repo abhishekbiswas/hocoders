@@ -9,6 +9,14 @@ public class RawDataStream {
     private long freq;
     private String row;
 
+    public RawDataStream(){}
+
+    public RawDataStream (String word, long freq, String row) {
+        this.word = word;
+        this.freq = freq;
+        this.row =row;
+    }
+
     public String getWord() {
         return word;
     }
