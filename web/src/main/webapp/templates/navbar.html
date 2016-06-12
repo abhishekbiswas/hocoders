@@ -20,13 +20,6 @@
                     <a href="" data-toggle="modal" data-target="#registerModal">Register</a>
                 </li>
 
-                <li>
-                    <button md-button (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
-                </li>
-                <li>
-                    <button md-button (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
-                </li>
-
             </ul>
         </div>
     </div>
