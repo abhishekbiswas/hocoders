@@ -5,15 +5,13 @@ import {ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
 import {NavBar} from './components/navbar';
 import {SampleDataService} from "./services/sampleDataService";
 import {HttpService} from "./services/httpService";
-import {FbOAuth} from "./components/fboauth";
 import {Register} from "./components/register";
-import {} from '@angular/router-deprecated';
 import {Admin} from "./components/admin";
 import {MainSummary} from "./components/mainSummary";
 
 @Component({
     selector: 'my-app',
-    directives: [NavBar, FbOAuth, ROUTER_DIRECTIVES],
+    directives: [NavBar, ROUTER_DIRECTIVES],
     providers: [HttpService, SampleDataService],
     templateUrl: 'templates/application.html'
 })
