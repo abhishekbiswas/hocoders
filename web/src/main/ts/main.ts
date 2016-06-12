@@ -7,4 +7,5 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
 import {AppComponent} from './application/app.component';
 
-bootstrap(AppComponent, [ ROUTER_PROVIDERS, HTTP_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy}),  provide(APP_BASE_HREF, { useValue:'/' })]);
+bootstrap(AppComponent, [ ROUTER_PROVIDERS, HTTP_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy}),
+    provide(APP_BASE_HREF, { useValue:'/' })]);

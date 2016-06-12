@@ -5,6 +5,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 
 import {Login} from './login';
 import {Register} from './register';
+import {Auth} from "../services/auth.service";
 
 @Component({
     selector: 'navbar',
@@ -12,4 +13,6 @@ import {Register} from './register';
     templateUrl: 'templates/navbar.html'
 })
 export class NavBar {
+    constructor(private auth: Auth) {
+    }
 }

@@ -8,11 +8,12 @@ import {HttpService} from "./services/httpService";
 import {Register} from "./components/register";
 import {Admin} from "./components/admin";
 import {MainSummary} from "./components/mainSummary";
+import {Auth} from "./services/auth.service";
 
 @Component({
     selector: 'my-app',
     directives: [NavBar, ROUTER_DIRECTIVES],
-    providers: [HttpService, SampleDataService],
+    providers: [HttpService, SampleDataService, Auth],
     templateUrl: 'templates/application.html'
 })
 @RouteConfig([
@@ -21,7 +22,7 @@ import {MainSummary} from "./components/mainSummary";
     { path: '/admin', name: 'Admin', component: Admin }
 ])
 export class AppComponent {
-    constructor(private sampleDataService: SampleDataService){
+    constructor(private sampleDataService: SampleDataService, private auth: Auth){
         console.log("App component initialised.");
         this.sampleDataService.getSampleMessage()
             .then((result) => {

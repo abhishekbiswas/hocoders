@@ -177,6 +177,23 @@
                             </resources>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>copy angular2-jwt</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>src/main/webapp/angular2-jwt</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/node_modules/angular2-jwt</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
                     <execution>
                         <id>copy reactivex</id>
                         <phase>prepare-package</phase>
